@@ -4,7 +4,7 @@ import DashboardPage from "./components/DashboardPage";
 import Challenge from "./components/Challenge";
 
 const App = () => {
-  const selectedPage = 1; // This can be dynamic based on your app's state or routing
+  const selectedPage = 2; // This can be dynamic based on your app's state or routing
   const pages = {
     0: <WelcomePage />,
     1: <DashboardPage />,
