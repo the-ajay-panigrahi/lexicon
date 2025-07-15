@@ -1,0 +1,29 @@
+const ProgressBar = () => {
+  const text = "lvl 1 | 90%";
+
+  return (
+    <div className="w-full space-y-2">
+      <div className="text-center font-mono text-sm text-zinc-500 dark:text-zinc-400">
+        <span className="font-bold text-zinc-800 dark:text-white">{text}</span>
+      </div>
+
+      <div className="relative w-full h-3 bg-zinc-200 dark:bg-zinc-700 rounded-md overflow-hidden shadow-inner dark:shadow-md">
+        <div
+          className="absolute top-0 left-0 h-full bg-gradient-to-r from-purple-500 to-indigo-500 transition-all duration-300 shadow-md"
+          style={{ width: "8%" }}
+        ></div>
+
+        <div className="absolute inset-0 grid grid-cols-10 gap-[2px] px-1">
+          {[0, 1, 2, 3, 4, 5, 6, 7, 8, 9].map((item) => (
+            <div
+              key={item}
+              className="h-full bg-black/10 dark:bg-white/10 rounded-sm backdrop-blur-sm"
+            />
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default ProgressBar;
