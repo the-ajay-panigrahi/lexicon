@@ -84,7 +84,7 @@ const DashboardPage = (props) => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.4 }}
         >
-          <Countdown />
+          <Countdown {...props} />
         </motion.div>
 
         <motion.div
@@ -92,7 +92,7 @@ const DashboardPage = (props) => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.4 }}
         >
-          <History />
+          <History {...props} />
         </motion.div>
       </motion.section>
     </main>

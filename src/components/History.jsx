@@ -1,6 +1,8 @@
 import { motion } from "motion/react";
 
-const History = () => {
+const History = ({ history }) => {
+  const historyKeys = Object.keys(history);
+
   return (
     <motion.div
       initial={{ opacity: 0, y: 10 }}
@@ -17,40 +19,52 @@ const History = () => {
         History
       </motion.h4>
 
-      <motion.p
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 0.2 }}
-        className="text-sm font-mono text-zinc-500 dark:text-zinc-400"
-      >
-        You have no attempts! Press{" "}
-        <span className="font-bold text-zinc-800 dark:text-white">Start</span>{" "}
-        to begin ⭐
-      </motion.p>
-
-      <motion.div
-        initial={{ opacity: 0, scale: 0.95 }}
-        animate={{ opacity: 1, scale: 1 }}
-        transition={{ delay: 0.3, duration: 0.4 }}
-        className="bg-white/70 dark:bg-zinc-900/70 border border-zinc-200 dark:border-zinc-700 rounded-xl px-4 py-4 grid grid-cols-2 gap-4 font-mono"
-      >
-        <div>
-          <p className="text-xs text-zinc-500 dark:text-zinc-400 mb-1">
-            Started
-          </p>
-          <h6 className="text-lg font-bold text-zinc-900 dark:text-white">
-            Mar 25 2025
-          </h6>
-        </div>
-        <div>
-          <p className="text-xs text-zinc-500 dark:text-zinc-400 mb-1">
-            Streak
-          </p>
-          <h6 className="text-lg font-bold text-zinc-900 dark:text-white">
-            53
-          </h6>
-        </div>
-      </motion.div>
+      {historyKeys.length === 0 ? (
+        <motion.p
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.2 }}
+          className="text-sm font-mono text-zinc-500 dark:text-zinc-400"
+        >
+          You have no attempts! Press{" "}
+          <span className="font-bold text-zinc-800 dark:text-white">Start</span>{" "}
+          to begin ⭐
+        </motion.p>
+      ) : (
+        historyKeys.map((item, itemIndex) => {
+          const dateKey = new Date(item)
+            .toString()
+            .split(" ")
+            .slice(1, 4)
+            .join(" ");
+          return (
+            <motion.div
+              key={itemIndex}
+              initial={{ opacity: 0, scale: 0.95 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ delay: 0.3, duration: 0.4 }}
+              className="bg-white/70 dark:bg-zinc-900/70 border border-zinc-200 dark:border-zinc-700 rounded-xl px-4 py-4 grid grid-cols-2 gap-4 font-mono"
+            >
+              <div>
+                <p className="text-xs text-zinc-500 dark:text-zinc-400 mb-1">
+                  Started
+                </p>
+                <h6 className="text-lg font-bold text-zinc-900 dark:text-white">
+                  {dateKey}
+                </h6>
+              </div>
+              <div>
+                <p className="text-xs text-zinc-500 dark:text-zinc-400 mb-1">
+                  Streak
+                </p>
+                <h6 className="text-lg font-bold text-zinc-900 dark:text-white">
+                  {history[item]}
+                </h6>
+              </div>
+            </motion.div>
+          );
+        })
+      )}
     </motion.div>
   );
 };

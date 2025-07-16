@@ -39,7 +39,18 @@ const App = () => {
         handleAccountCreate={handleCreateAccount}
       />
     ),
-    1: <DashboardPage name={name} attempts={attempts} PLAN={PLAN} day={day} />,
+    1: (
+      <DashboardPage
+        name={name}
+        attempts={attempts}
+        PLAN={PLAN}
+        day={day}
+        handleChangePage={handlePageChange}
+        dayWords={dayWords}
+        dateTime={dateTime}
+        history={history}
+      />
+    ),
     2: <Challenge />,
   };
   return <>{pages[selectedPage]}</>;
