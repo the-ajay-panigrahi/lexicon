@@ -48,7 +48,7 @@ export function calculateAccuracy(a, day) {
 
 export function isEncountered(day, word) {
     let totalWords = generateWordArr(day - 1).map(e => getWordByIndex(WORDS, parseInt(e)).word)
-    console.log(totalWords)
+    // console.log(totalWords)
     return totalWords.includes(word)
 }
 

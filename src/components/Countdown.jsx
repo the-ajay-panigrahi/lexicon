@@ -1,14 +1,21 @@
 import { motion } from "motion/react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { convertMilliseconds, countdownIn24Hours } from "../utils";
 
-const Countdown = ({ handleChangePage, dayWords, dateTime, day }) => {
+const Countdown = ({ handlePageChange, dayWords, dateTime, day }) => {
   const targetMillis = dateTime || Date.UTC(1944, 2, 17, 12, 0, 0);
   const [remainingMS, setRemainingMS] = useState(
     countdownIn24Hours(targetMillis)
   );
 
   const timer = convertMilliseconds(remainingMS);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setRemainingMS(countdownIn24Hours(targetMillis));
+    }, 1000);
+    return () => clearInterval(interval);
+  }, [targetMillis]);
 
   return (
     <motion.div
@@ -23,7 +30,7 @@ const Countdown = ({ handleChangePage, dayWords, dateTime, day }) => {
         transition={{ delay: 0.1, duration: 0.4 }}
         className="text-xl sm:text-2xl font-bold font-mono text-zinc-800 dark:text-white"
       >
-        Day 1
+        Day {day}
       </motion.h1>
 
       <motion.div
@@ -38,7 +45,7 @@ const Countdown = ({ handleChangePage, dayWords, dateTime, day }) => {
           </p>
           <h3 className="text-lg font-bold text-zinc-900 dark:text-white">
             {dateTime
-              ? `${Math.abs(timer.hours)}H ${timer.minutes}M ${timer.seconds}S}`
+              ? `${Math.abs(timer.hours)}H ${timer.minutes}M ${timer.seconds}S`
               : "23H 59M 59S"}
           </h3>
         </div>
@@ -56,7 +63,7 @@ const Countdown = ({ handleChangePage, dayWords, dateTime, day }) => {
         whileHover={{ scale: 1.03 }}
         whileTap={{ scale: 0.97 }}
         transition={{ type: "spring", stiffness: 240, damping: 18 }}
-        onClick={() => handleChangePage(2)}
+        onClick={() => handlePageChange(2)}
         className="w-full py-2 font-bold font-mono rounded-xl text-white bg-gradient-to-r from-purple-500 to-indigo-500 shadow-md hover:shadow-lg transition-all duration-300 hover:opacity-90 cursor-pointer"
       >
         Start

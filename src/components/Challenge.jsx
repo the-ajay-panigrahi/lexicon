@@ -1,10 +1,37 @@
 import { motion } from "motion/react";
 import Header from "./Header";
 import ProgressBar from "./ProgressBar";
+import { useState } from "react";
+import { isEncountered, shuffle } from "../utils";
+import DEFINITIONS from "../utils/VOCAB.json";
 
-const ChallengePage = () => {
-  const word = "Example Word";
-  const definition = "This is a sample";
+const ChallengePage = ({
+  day,
+  dayWords,
+  handlePageChange,
+  handleIncrementAttempts,
+  handleCompleteDay,
+  PLAN,
+}) => {
+  const [wordIndex, setWordIndex] = useState(0);
+  const [inputValue, setInputValue] = useState("");
+  const [showDefinition, setShowDefinition] = useState(false);
+  const [listToLearn, setListToLearn] = useState([
+    ...dayWords,
+    ...shuffle(dayWords),
+    ...shuffle(dayWords),
+    ...shuffle(dayWords),
+  ]);
+  const word = listToLearn[wordIndex];
+  const isNewWord =
+    showDefinition ||
+    (!isEncountered(day, word) && wordIndex < dayWords.length);
+  const definition = DEFINITIONS[word];
+
+  const forgotWord = () => {
+    setShowDefinition(true);
+    setListToLearn([...listToLearn, word]);
+  };
 
   return (
     <main className="min-h-screen w-full bg-white text-zinc-900 dark:bg-[#09090b] dark:text-white transition-colors duration-300 overflow-hidden relative flex items-center justify-center">
@@ -84,26 +111,39 @@ const ChallengePage = () => {
             {word}
           </motion.h1>
 
-          <motion.p
-            className="text-zinc-600 dark:text-zinc-400 text-center font-mono"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.2 }}
-          >
-            {definition}
-          </motion.p>
+          {isNewWord && (
+            <motion.p
+              className="text-zinc-600 dark:text-zinc-400 text-center font-mono"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.2 }}
+            >
+              {definition}
+            </motion.p>
+          )}
           <motion.div
             className="grid grid-cols-[repeat(auto-fit,minmax(6px,1fr))] gap-[3px] w-full h-3"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.3 }}
           >
-            {[...definition].map((_, i) => (
-              <div
-                key={i}
-                className="h-full rounded-sm bg-zinc-300 dark:bg-zinc-700 transition-colors"
-              />
-            ))}
+            {[...definition].map((char, i) => {
+              let styleToApply = "bg-zinc-300 dark:bg-zinc-700";
+
+              if (i < inputValue.length) {
+                styleToApply =
+                  inputValue[i]?.toLowerCase() === char?.toLowerCase()
+                    ? "bg-green-500"
+                    : "bg-red-500";
+              }
+
+              return (
+                <div
+                  key={i}
+                  className={`h-full rounded-sm transition-colors ${styleToApply}`}
+                />
+              );
+            })}
           </motion.div>
 
           <motion.input
@@ -113,6 +153,34 @@ const ChallengePage = () => {
             initial={{ opacity: 0, y: 6 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.4 }}
+            value={inputValue}
+            onChange={(e) => {
+              // if a user has entered the correct number of characters, we need to do a few things
+              // 1. if the entry is correct, we need to increment attempts and move them on to the next word
+              // 2. if the entry is incorrect we need to increment attempts, and also if they
+              if (
+                e.target.value.length == definition.length &&
+                e.target.value.length > inputValue.length
+              ) {
+                // compare words
+                handleIncrementAttempts();
+
+                if (e.target.value.toLowerCase() == definition.toLowerCase()) {
+                  // then the user has the correct input
+                  if (wordIndex >= listToLearn.length - 1) {
+                    handleCompleteDay();
+                    return;
+                  }
+                  setWordIndex(wordIndex + 1);
+                  setShowDefinition(false);
+                  setInputValue("");
+                  return;
+                  // check if finished all the words, then end the day, otherwise go to next word
+                }
+              }
+
+              setInputValue(e.target.value);
+            }}
           />
 
           <motion.div
@@ -128,6 +196,9 @@ const ChallengePage = () => {
                 color: "#7f1d1d",
               }}
               whileTap={{ scale: 0.95 }}
+              onClick={() => {
+                handlePageChange(1);
+              }}
               className="flex-1 py-2 rounded-md border border-red-400 text-red-600 dark:text-red-400 font-semibold bg-red-100/30 dark:bg-red-800/10 transition-colors duration-200 cursor-pointer"
             >
               Quit
@@ -140,6 +211,7 @@ const ChallengePage = () => {
                 color: "#78350f",
               }}
               whileTap={{ scale: 0.95 }}
+              onClick={forgotWord}
               className="flex-1 py-2 rounded-md border border-yellow-400 text-yellow-600 dark:text-yellow-300 font-semibold bg-yellow-100/30 dark:bg-yellow-800/10 transition-colors duration-200 cursor-pointer"
             >
               I forgot
@@ -151,7 +223,10 @@ const ChallengePage = () => {
             animate={{ opacity: 1 }}
             transition={{ delay: 0.5 }}
           >
-            <ProgressBar />
+            <ProgressBar
+              text={`${wordIndex}/${listToLearn.length}`}
+              remainder={(wordIndex * 100) / listToLearn.length}
+            />
           </motion.div>
         </motion.div>
       </motion.section>
