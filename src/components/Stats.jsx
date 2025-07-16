@@ -1,11 +1,14 @@
 import { motion } from "motion/react";
 import ProgressBar from "./ProgressBar";
+import { calcLevel, calculateAccuracy, calculateNewWords } from "../utils";
 
-const Stats = ({name}) => {
-  const day = 5;
-  const wordsSeen = 107;
-  const accuracy = 89.4;
+const Stats = ({ name, day, attempts, PLAN }) => {
+  const wordsSeen = calculateNewWords(day - 1);
+  const accuracy = calculateAccuracy(attempts, day) * 100;
 
+  const currentLevel = calcLevel(day);
+  const flooredLevel = Math.floor(currentLevel);
+  const remainder = (currentLevel - flooredLevel) * 100;
   return (
     <motion.div
       initial={{ opacity: 0, y: 12 }}
@@ -38,7 +41,7 @@ const Stats = ({name}) => {
         {[
           { label: "Streak 🔥", value: day - 1 },
           { label: "Words seen", value: wordsSeen },
-          { label: "Accuracy (%)", value: accuracy.toFixed(2) },
+          { label: "Accuracy (%)", value: accuracy.toFixed(1) },
         ].map((stat, idx) => (
           <motion.div
             key={idx}
@@ -61,7 +64,7 @@ const Stats = ({name}) => {
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.2, duration: 0.4 }}
       >
-        <ProgressBar />
+        <ProgressBar text={`lvl ${flooredLevel}`} remainder={remainder} />
       </motion.div>
     </motion.div>
   );

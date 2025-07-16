@@ -1,8 +1,6 @@
 import { motion } from "motion/react";
 
-const ProgressBar = () => {
-  const text = "lvl 1 | 90%";
-
+const ProgressBar = ({ text, remainder }) => {
   return (
     <motion.div
       initial={{ opacity: 0, y: 8 }}
@@ -27,7 +25,7 @@ const ProgressBar = () => {
       >
         <motion.div
           className="absolute top-0 left-0 h-full bg-gradient-to-r from-purple-500 to-indigo-500 transition-all duration-300 shadow-md"
-          style={{ width: "85%" }}
+          style={{ width: `${remainder}%` }}
         ></motion.div>
 
         <div className="absolute inset-0 grid grid-cols-10 gap-[2px] px-1">
