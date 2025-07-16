@@ -1,8 +1,7 @@
 import { motion } from "motion/react";
 import ProgressBar from "./ProgressBar";
 
-const Stats = () => {
-  const name = "Ajay";
+const Stats = ({name}) => {
   const day = 5;
   const wordsSeen = 107;
   const accuracy = 89.4;

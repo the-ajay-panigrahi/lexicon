@@ -4,7 +4,7 @@ import Countdown from "./Countdown";
 import History from "./History";
 import Header from "./Header";
 
-const DashboardPage = () => {
+const DashboardPage = ({ name }) => {
   return (
     <main className="min-h-screen w-full bg-white text-zinc-900 dark:bg-[#09090b] dark:text-white transition-colors duration-300 overflow-hidden relative">
       <div className="absolute inset-0 z-0 pointer-events-none">
@@ -76,7 +76,7 @@ const DashboardPage = () => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.4 }}
         >
-          <Stats />
+          <Stats name={name} />
         </motion.div>
 
         <motion.div

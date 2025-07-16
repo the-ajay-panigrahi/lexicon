@@ -1,7 +1,7 @@
 import { motion } from "motion/react";
 import Header from "./Header";
 
-const WelcomePage = () => {
+const WelcomePage = ({ name, setName, handleAccountCreate }) => {
   return (
     <div className="relative min-h-screen w-full flex items-center justify-center px-4 sm:px-6 bg-[#fdfdfd] dark:bg-[#0a0a0c] transition-colors duration-300 overflow-hidden">
       <div className="absolute inset-0 z-0 pointer-events-none">
@@ -106,12 +106,17 @@ const WelcomePage = () => {
             whileFocus={{ scale: 1.01 }}
             type="text"
             placeholder="Enter your name..."
+            value={name}
+            onChange={(e) => setName(e.target.value)}
             className="w-full px-4 py-3 rounded-md bg-zinc-100 dark:bg-zinc-900 text-zinc-800 dark:text-white placeholder-zinc-500 dark:placeholder-zinc-600 border border-zinc-300 dark:border-zinc-700 focus:outline-none focus:ring-2 focus:ring-purple-500"
           />
           <motion.button
             whileHover={{ scale: 1.045 }}
             whileTap={{ scale: 0.97 }}
             transition={{ type: "spring", stiffness: 260, damping: 22 }}
+            onClick={() => {
+              handleAccountCreate();
+            }}
             className="w-full py-3 rounded-md bg-gradient-to-r from-purple-600 to-indigo-600 text-white font-semibold hover:brightness-110 shadow-md cursor-pointer transition-all duration-100 flex items-center justify-center"
           >
             Start your journey{" "}
