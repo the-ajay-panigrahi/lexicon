@@ -1,0 +1,25 @@
+/* Anthropic-inspired editorial study space; all learning/progress logic is unchanged. */
+:root{--study-paper:#f4f1e9;--study-surface:#fffdf7;--study-ink:#292b26;--study-muted:#62645a;--study-line:#d9d8ca;--study-accent:#a14b36}
+:root.dark{--study-paper:#171b18;--study-surface:#222823;--study-ink:#eeeede;--study-muted:#babdae;--study-line:#41493c;--study-accent:#e2aa7e}
+body{background:var(--study-paper);color:var(--study-ink)}
+#root .min-h-screen{background:var(--study-paper);color:var(--study-ink)}
+#root .pointer-events-none>svg{display:none}
+#root [class*="max-w-[700px]"]{max-width:1000px}
+#root>div.min-h-screen{padding:clamp(20px,5vw,70px)}
+#root>div.min-h-screen>div.relative{background:var(--study-surface);padding:clamp(25px,5vw,64px);border:1px solid var(--study-line);border-radius:20px;box-shadow:0 16px 50px #24251a08!important;backdrop-filter:none}
+#root header{padding-bottom:25px;border-bottom:1px solid var(--study-line);margin-bottom:22px}
+#root h1{font-size:1.9rem;letter-spacing:-.065em;font-weight:600;color:var(--study-ink)}
+#root h2{font-family:Georgia,serif;font-size:clamp(2.6rem,5.8vw,4.5rem);font-weight:400;letter-spacing:-.055em;line-height:1.07;background:none;color:var(--study-ink);-webkit-text-fill-color:currentColor}
+#root h3{letter-spacing:-.035em;color:var(--study-ink)}
+#root p{color:var(--study-muted);line-height:1.75;font-family:inherit}
+#root input{background:var(--study-surface);border-color:var(--study-line);color:var(--study-ink);border-radius:8px;min-height:52px}
+#root input:focus{outline:2px solid var(--study-accent);outline-offset:3px}
+#root button[class*="bg-gradient"]{background:var(--study-accent);color:var(--study-surface);border-radius:8px;box-shadow:none;min-height:50px}
+#root [class*="text-purple"],#root [class*="text-indigo"]{color:var(--study-accent)}
+#root [class*="rounded-xl"],#root [class*="rounded-2xl"]{border-color:var(--study-line);box-shadow:none}
+#root [class*="bg-white"],#root [class*="bg-zinc-100"]{background-color:var(--study-surface)}
+#root .text-zinc-900,#root .text-zinc-800{color:var(--study-ink)}
+#root main>section{position:relative;padding:45px 24px}
+#root img{filter:saturate(.65);border-radius:12px}
+@media(max-width:640px){#root>div.min-h-screen{padding:18px}#root>div.min-h-screen>div.relative{padding:24px}#root h2{font-size:2.8rem}}
+@media(prefers-reduced-motion:reduce){#root *{animation:none!important;transition:none!important;transform:none!important;opacity:1!important}}
