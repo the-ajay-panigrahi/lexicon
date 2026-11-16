@@ -25,12 +25,15 @@ Lexicon is a powerful word memorization app designed to help you embark on a 365
 
 ## 🖼️ Screenshots
 
-<img width="1920" height="935" alt="image" src="https://github.com/user-attachments/assets/9d81457c-f16b-47d4-b60a-8a25ce066bb1" />
-<img width="1920" height="1200" alt="image" src="https://github.com/user-attachments/assets/b5825768-2871-400e-8f16-11b40812faff" />
-<img width="1920" height="935" alt="image" src="https://github.com/user-attachments/assets/f8040d14-f9e5-4464-9ee5-27274b122b15" />
-<img width="1920" height="935" alt="image" src="https://github.com/user-attachments/assets/24ff988a-e3eb-4fac-bbc1-f44f651c5ba6" />
-<img width="1920" height="1200" alt="image" src="https://github.com/user-attachments/assets/d5183484-4a2a-4bcc-9528-7cbc2688cee4" />
-<img width="1920" height="935" alt="image" src="https://github.com/user-attachments/assets/876325dd-cabe-42ae-957c-0618d5c2b8bd" />
+Desktop views of the redesigned interface, using sample local records.
+
+![Welcome screen in light mode](screenshots/welcome-light.png)
+![Dashboard in light mode](screenshots/dashboard-light.png)
+![Challenge in light mode](screenshots/challenge-light.png)
+![Welcome screen in dark mode](screenshots/welcome-dark.png)
+![Dashboard in dark mode](screenshots/dashboard-dark.png)
+![Challenge in dark mode](screenshots/challenge-dark.png)
+
 
 ---
 
